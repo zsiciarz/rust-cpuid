@@ -1,15 +1,10 @@
 extern crate libc;
 
-use libc::c_int;
-
-#[link(name = "cpuid")]
-extern {
-    fn cpuid_present() -> c_int;
-}
+mod ffi;
 
 pub fn is_present() -> bool {
     unsafe {
-        cpuid_present() == 1
+        ffi::cpuid_present() == 1
     }
 }
 

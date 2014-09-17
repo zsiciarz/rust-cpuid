@@ -13,10 +13,13 @@ pub struct cpu_raw_data_t {
     pub intel_fn11: [uint32_t, ..MAX_INTELFN11_LEVEL * 4u],
 }
 
+// TODO: definition for struct cpu_id_t
+
 #[link(name = "cpuid")]
 extern {
     pub fn cpuid_present() -> c_int;
     pub fn cpuid_lib_version() -> *const c_char;
     pub fn cpuid_error() -> *const c_char;
     pub fn cpuid_get_raw_data(raw: *mut cpu_raw_data_t) -> c_int;
+    // TODO: add cpu_identify
 }

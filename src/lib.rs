@@ -18,6 +18,14 @@ pub fn version() -> String {
     version_string.as_str().unwrap().to_string()
 }
 
+pub fn error() -> String {
+    let error_string = unsafe {
+        let ptr = ffi::cpuid_error();
+        CString::new(ptr, false)
+    };
+    error_string.as_str().unwrap().to_string()
+}
+
 #[test]
 fn test_is_present() {
     assert!(is_present());

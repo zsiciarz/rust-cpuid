@@ -1,0 +1,8 @@
+language: rust
+install:
+  - sudo apt-get install libtool autoconf
+  - git clone https://github.com/anrieff/libcpuid.git && cd libcpuid
+  - libtoolize
+  - autoreconf --install
+  - ./configure && make && sudo make install
+  - sudo ldconfig

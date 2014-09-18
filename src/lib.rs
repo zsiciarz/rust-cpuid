@@ -6,6 +6,9 @@ mod ffi;
 
 #[deriving(Show)]
 pub struct CpuInfo {
+    vendor: String,
+    brand: String,
+    codename: String,
     num_cores: int,
     num_logical_cpus: int,
     total_logical_cpus: int,
@@ -84,6 +87,9 @@ pub fn identify() -> Result<CpuInfo, String> {
         Err(error())
     } else {
         Ok(CpuInfo {
+            vendor: String::from_utf8(data.vendor_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid vendor string"),
+            brand: String::from_utf8(data.brand_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid brand string"),
+            codename: String::from_utf8(data.cpu_codename.iter().map(|&x| x as u8).collect()).ok().expect("Invalid codename string"),
             num_cores: data.num_cores as int,
             num_logical_cpus: data.num_logical_cpus as int,
             total_logical_cpus: data.total_logical_cpus as int,

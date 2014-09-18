@@ -7,10 +7,10 @@ pub static MAX_INTELFN11_LEVEL: uint = 4u;
 
 #[repr(C)]
 pub struct cpu_raw_data_t {
-    pub basic_cpuid: [uint32_t, ..MAX_CPUID_LEVEL * 4u],
-    pub ext_cpuid: [uint32_t, ..MAX_EXT_CPUID_LEVEL * 4u],
-    pub intel_fn4: [uint32_t, ..MAX_INTELFN4_LEVEL * 4u],
-    pub intel_fn11: [uint32_t, ..MAX_INTELFN11_LEVEL * 4u],
+    pub basic_cpuid: [[uint32_t, ..MAX_CPUID_LEVEL], ..4u],
+    pub ext_cpuid: [[uint32_t, ..MAX_EXT_CPUID_LEVEL], ..4u],
+    pub intel_fn4: [[uint32_t, ..MAX_INTELFN4_LEVEL], ..4u],
+    pub intel_fn11: [[uint32_t, ..MAX_INTELFN11_LEVEL], ..4u],
 }
 
 // TODO: definition for struct cpu_id_t

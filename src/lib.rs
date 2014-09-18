@@ -6,16 +6,16 @@ mod ffi;
 
 #[deriving(Show)]
 pub struct CpuInfo {
-    vendor: String,
-    brand: String,
-    codename: String,
-    num_cores: int,
-    num_logical_cpus: int,
-    total_logical_cpus: int,
-    l1_data_cache: Option<int>,
-    l1_instruction_cache: Option<int>,
-    l2_cache: Option<int>,
-    l3_cache: Option<int>,
+    pub vendor: String,
+    pub brand: String,
+    pub codename: String,
+    pub num_cores: int,
+    pub num_logical_cpus: int,
+    pub total_logical_cpus: int,
+    pub l1_data_cache: Option<int>,
+    pub l1_instruction_cache: Option<int>,
+    pub l2_cache: Option<int>,
+    pub l3_cache: Option<int>,
 }
 
 pub fn is_present() -> bool {

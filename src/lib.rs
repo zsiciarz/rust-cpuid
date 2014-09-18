@@ -4,6 +4,17 @@ use std::c_str::CString;
 
 mod ffi;
 
+#[deriving(Show)]
+pub struct CpuInfo {
+    num_cores: int,
+    num_logical_cpus: int,
+    total_logical_cpus: int,
+    l1_data_cache: Option<int>,
+    l1_instruction_cache: Option<int>,
+    l2_cache: Option<int>,
+    l3_cache: Option<int>,
+}
+
 pub fn is_present() -> bool {
     unsafe {
         ffi::cpuid_present() == 1
@@ -26,7 +37,7 @@ pub fn error() -> String {
     error_string.as_str().unwrap().to_string()
 }
 
-pub fn identify() -> bool {
+pub fn identify() -> Result<CpuInfo, String> {
     let mut raw = ffi::cpu_raw_data_t {
         basic_cpuid: [[0, ..ffi::MAX_CPUID_LEVEL], ..4u],
         ext_cpuid: [[0, ..ffi::MAX_EXT_CPUID_LEVEL], ..4u],
@@ -67,8 +78,19 @@ pub fn identify() -> bool {
     let identify_result = unsafe {
         ffi::cpu_identify(&mut raw, &mut data)
     };
-    // TODO: convert data to a more friendly representation and return
-    identify_result == 0
+    if identify_result != 0 {
+        Err(error())
+    } else {
+        Ok(CpuInfo {
+            num_cores: data.num_cores as int,
+            num_logical_cpus: data.num_logical_cpus as int,
+            total_logical_cpus: data.total_logical_cpus as int,
+            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache as int) } else { None },
+            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache as int) } else { None },
+            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache as int) } else { None },
+            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache as int) } else { None },
+        })
+    }
 }
 
 #[test]

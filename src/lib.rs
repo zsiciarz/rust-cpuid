@@ -47,7 +47,9 @@ pub fn identify() -> Result<CpuInfo, String> {
     let raw_result = unsafe {
         ffi::cpuid_get_raw_data(&mut raw)
     };
-    // TODO: use raw in the call to cpu_identify
+    if raw_result != 0 {
+        return Err(error());
+    }
     let mut data = ffi::cpu_id_t {
         vendor_str: [0, ..ffi::VENDOR_STR_MAX],
         brand_str: [0, ..ffi::BRAND_STR_MAX],

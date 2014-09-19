@@ -9,11 +9,11 @@ install:
   - autoreconf --install
   - ./configure && make && sudo make install
   - sudo ldconfig
+  - cd ..
 script:
   - cargo build --verbose
   - cargo test --verbose
   - cargo doc --verbose
-  - pwd
-  - ls -la target/
+  - mv target/doc doc
 after_script:
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh

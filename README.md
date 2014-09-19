@@ -18,7 +18,7 @@ Add to your `Cargo.toml`:
 git = "https://github.com/zsiciarz/rust-cpuid.git"
 ```
 
-Add `extern crate cpuid` to your crate root and your good to go! For example:
+Add `extern crate cpuid` to your crate root and you're good to go! For example:
 
 ```rust
 extern crate cpuid;

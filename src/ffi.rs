@@ -58,6 +58,38 @@ pub struct cpu_id_t {
     pub detection_hints: [uint8_t, ..CPU_HINTS_MAX],
 }
 
+impl Default for cpu_id_t {
+    fn default() -> cpu_id_t {
+        cpu_id_t {
+            vendor_str: [0, ..VENDOR_STR_MAX],
+            brand_str: [0, ..BRAND_STR_MAX],
+            vendor: 0,
+            flags: [0u8, ..CPU_FLAGS_MAX],
+            family: 0,
+            model: 0,
+            stepping: 0,
+            ext_family: 0,
+            ext_model: 0,
+            num_cores: 0,
+            num_logical_cpus: 0,
+            total_logical_cpus: 0,
+            l1_data_cache: 0,
+            l1_instruction_cache: 0,
+            l2_cache: 0,
+            l3_cache: 0,
+            l1_assoc: 0,
+            l2_assoc: 0,
+            l3_assoc: 0,
+            l1_cacheline: 0,
+            l2_cacheline: 0,
+            l3_cacheline: 0,
+            cpu_codename: [0, ..64],
+            sse_size: 0,
+            detection_hints: [0u8, ..CPU_HINTS_MAX],
+        }
+    }
+}
+
 #[link(name = "cpuid")]
 extern {
     pub fn cpuid_present() -> c_int;

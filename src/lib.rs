@@ -71,6 +71,17 @@ pub fn identify() -> Result<CpuInfo, String> {
     }
 }
 
+pub fn clock_frequency() -> Option<int> {
+    let frequency = unsafe {
+        ffi::cpu_clock()
+    };
+    if frequency != -1 {
+        Some(frequency as int)
+    } else {
+        None
+    }
+}
+
 #[test]
 fn test_is_present() {
     assert!(is_present());

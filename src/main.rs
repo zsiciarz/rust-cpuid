@@ -12,6 +12,10 @@ fn main () {
             println!("Processor model is: {}", info.codename);
             println!("The full brand string is: {}", info.brand);
             println!("The processor has {} cores and {} logical processors", info.num_cores, info.num_logical_cpus);
+            match cpuid::clock_frequency() {
+                Some(frequency) => println!("CPU speed: {} MHz", frequency),
+                None => println!("Couldn't get CPU speed."),
+            };
         }
     }
 }

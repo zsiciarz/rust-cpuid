@@ -97,4 +97,5 @@ extern {
     pub fn cpuid_error() -> *const c_char;
     pub fn cpuid_get_raw_data(raw: *mut cpu_raw_data_t) -> c_int;
     pub fn cpu_identify(raw: *mut cpu_raw_data_t, data: *mut cpu_id_t) -> c_int;
+    pub fn cpu_clock() -> c_int;
 }

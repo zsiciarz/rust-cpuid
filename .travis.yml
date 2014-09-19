@@ -13,6 +13,7 @@ script:
   - cargo build --verbose
   - cargo test --verbose
   - cargo doc --verbose
+  - pwd
   - ls -la target/
 after_script:
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh

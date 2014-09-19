@@ -1,3 +1,4 @@
+use std::default::Default;
 use libc::{c_int, c_char, uint8_t, uint32_t, int32_t};
 
 pub static MAX_CPUID_LEVEL: uint = 32u;
@@ -15,6 +16,17 @@ pub struct cpu_raw_data_t {
     pub ext_cpuid: [[uint32_t, ..MAX_EXT_CPUID_LEVEL], ..4u],
     pub intel_fn4: [[uint32_t, ..MAX_INTELFN4_LEVEL], ..4u],
     pub intel_fn11: [[uint32_t, ..MAX_INTELFN11_LEVEL], ..4u],
+}
+
+impl Default for cpu_raw_data_t {
+    fn default() -> cpu_raw_data_t {
+        cpu_raw_data_t {
+            basic_cpuid: [[0, ..MAX_CPUID_LEVEL], ..4u],
+            ext_cpuid: [[0, ..MAX_EXT_CPUID_LEVEL], ..4u],
+            intel_fn4: [[0, ..MAX_INTELFN4_LEVEL], ..4u],
+            intel_fn11: [[0, ..MAX_INTELFN11_LEVEL], ..4u],
+        }
+    }
 }
 
 #[repr(C)]

@@ -1,6 +1,7 @@
 extern crate libc;
 
 use std::c_str::CString;
+use std::default::Default;
 
 mod ffi;
 
@@ -41,12 +42,7 @@ pub fn error() -> String {
 }
 
 pub fn identify() -> Result<CpuInfo, String> {
-    let mut raw = ffi::cpu_raw_data_t {
-        basic_cpuid: [[0, ..ffi::MAX_CPUID_LEVEL], ..4u],
-        ext_cpuid: [[0, ..ffi::MAX_EXT_CPUID_LEVEL], ..4u],
-        intel_fn4: [[0, ..ffi::MAX_INTELFN4_LEVEL], ..4u],
-        intel_fn11: [[0, ..ffi::MAX_INTELFN11_LEVEL], ..4u],
-    };
+    let mut raw: ffi::cpu_raw_data_t = Default::default();
     let raw_result = unsafe {
         ffi::cpuid_get_raw_data(&mut raw)
     };

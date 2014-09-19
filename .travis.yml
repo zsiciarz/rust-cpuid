@@ -1,4 +1,7 @@
 language: rust
+env:
+  global:
+    - secure: EcBvxcEJTxVg89DF7hR/VqwsGanWnngimblVgwyLhy3bk2ApyxKOcmcuzMdXMttGUvzB2ua+8LefnoKrXRwJ8Ms+NeDdp60H7brzwFZM2CbAQiVr8Gkk0o7refonvHOapcECRYFNHoVcRRYVyw+AEqmzGTx8X39mYHH5t9G5YfQ=
 install:
   - sudo apt-get install libtool autoconf
   - git clone https://github.com/anrieff/libcpuid.git && cd libcpuid
@@ -6,3 +9,10 @@ install:
   - autoreconf --install
   - ./configure && make && sudo make install
   - sudo ldconfig
+script:
+  - cargo build --verbose
+  - cargo test --verbose
+  - cargo doc --verbose
+  - mv target/doc doc
+after_script:
+  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh

@@ -45,6 +45,7 @@ fn main () {
 Resources
 =========
 
+ * [Documentation](http://www.rust-ci.org/zsiciarz/rust-cpuid/doc/cpuid/)
  * [Issue tracker](https://github.com/zsiciarz/rust-cpuid/issues)
  * [CI server](https://travis-ci.org/zsiciarz/rust-cpuid)
 

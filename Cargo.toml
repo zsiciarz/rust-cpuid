@@ -3,3 +3,10 @@
 name = "cpuid"
 version = "0.0.1"
 authors = ["Zbigniew Siciarz <zbigniew@siciarz.net>"]
+
+[lib]
+name = "cpuid"
+
+[[bin]]
+name = "cpuid"
+doc = false

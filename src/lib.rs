@@ -1,3 +1,49 @@
+//! Rust bindings for [libpcuid](https://github.com/anrieff/libcpuid)
+//! CPU detection and feature extraction library.
+//!
+//! `rust-cpuid` provides a high-level interface for getting information
+//! about the features of the CPU that runs your code. All the essential
+//! work is done by the `libcpuid` C library and exposed through Rust's
+//! FFI mechanism as a simple and convenient API.
+//!
+//! # Available features
+//!
+//! * CPU vendor, brand and codename detection
+//! * information about number of cores (both physical and logical)
+//! * cache size
+//! * clock frequency
+//!
+//! # Installation
+//!
+//! First - download, and build libcpuid as [described in the readme](https://github.com/anrieff/libcpuid). Install it by running `make install` (you may want to run `ldconfig` afterwards).
+//!
+//! Add to your `Cargo.toml`:
+//!
+//! ```toml
+//! [dependencies.cpuid]
+//! git = "https://github.com/zsiciarz/rust-cpuid.git"
+//! ```
+//!
+//! # Example
+//!
+//! ```rust
+//! extern crate cpuid;
+//!
+//! fn main () {
+//!     match cpuid::identify() {
+//!         Ok(info) => {
+//!             println!("Found: {} CPU, model: {}", info.vendor, info.codename);
+//!             println!("The full brand string is: {}", info.brand);
+//!         },
+//!         Err(err) => println!("cpuid error: {}", err),
+//!     };
+//!     match cpuid::clock_frequency() {
+//!         Some(frequency) => println!("CPU speed: {} MHz", frequency),
+//!         None => println!("Couldn't get CPU speed."),
+//!     };
+//! }
+//! ```
+
 extern crate libc;
 
 use std::c_str::CString;

@@ -53,16 +53,16 @@ mod ffi;
 
 /// A struct holding information about CPU features.
 ///
-/// This data structure is returned by identify(). You can consult
+/// This data structure is returned by `identify()`. You can consult
 /// [libcpuid docs for cpu_id_t](http://libcpuid.sourceforge.net/doxy/structcpu__id__t.html)
 /// for more detailed descriptions of these fields.
 #[deriving(Show)]
 pub struct CpuInfo {
-    /// CPU vendor string, for example "GenuineIntel".
+    /// CPU vendor string, for example *GenuineIntel*.
     pub vendor: String,
-    /// Brand string, for example "Intel(R) Core(TM) i5-2410M CPU @ 2.30GHz".
+    /// Brand string, for example *Intel(R) Core(TM) i5-2410M CPU @ 2.30GHz*.
     pub brand: String,
-    /// Brief CPU codename, such as "Sandy Bridge (Core i5)".
+    /// Brief CPU codename, such as *Sandy Bridge (Core i5)*.
     pub codename: String,
     /// Number of physical cores of the current CPU.
     pub num_cores: int,
@@ -70,22 +70,24 @@ pub struct CpuInfo {
     pub num_logical_cpus: int,
     /// Total number of logical processors.
     pub total_logical_cpus: int,
-    /// L1 data cache size in kB. Some(0) if the CPU lacks cache, None if it couldn't be determined.
+    /// L1 data cache size in kB. `Some(0)` if the CPU lacks cache, `None` if it couldn't be determined.
     pub l1_data_cache: Option<int>,
-    /// L1 instruction cache size in kB. Some(0) if the CPU lacks cache, None if it couldn't be determined.
+    /// L1 instruction cache size in kB. `Some(0)` if the CPU lacks cache, `None` if it couldn't be determined.
     pub l1_instruction_cache: Option<int>,
-    /// L2 cache size in kB. Some(0) if the CPU lacks L2 cache, None if it couldn't be determined.
+    /// L2 cache size in kB. `Some(0)` if the CPU lacks L2 cache, `None` if it couldn't be determined.
     pub l2_cache: Option<int>,
-    /// L3 cache size in kB. Some(0) if the CPU lacks L3 cache, None if it couldn't be determined.
+    /// L3 cache size in kB. `Some(0)` if the CPU lacks L3 cache, `None` if it couldn't be determined.
     pub l3_cache: Option<int>,
 }
 
+/// Checks if the CPUID instruction is present.
 pub fn is_present() -> bool {
     unsafe {
         ffi::cpuid_present() == 1
     }
 }
 
+/// Returns libcpuid version string.
 pub fn version() -> String {
     let version_string = unsafe {
         let ptr = ffi::cpuid_lib_version();
@@ -94,6 +96,7 @@ pub fn version() -> String {
     version_string.as_str().unwrap().to_string()
 }
 
+/// Returns last libcpuid error string.
 pub fn error() -> String {
     let error_string = unsafe {
         let ptr = ffi::cpuid_error();
@@ -102,6 +105,12 @@ pub fn error() -> String {
     error_string.as_str().unwrap().to_string()
 }
 
+/// Tries to identify the current CPU and its features.
+///
+/// In case of successful detection, a `CpuInfo` struct is returned (wrapped
+/// with `Ok`) which contains all available data about the processor.
+/// If libcpuid encounters an error, `identify` returns an `Err` with
+/// the error message inside.
 pub fn identify() -> Result<CpuInfo, String> {
     let mut raw: ffi::cpu_raw_data_t = Default::default();
     let raw_result = unsafe {
@@ -132,6 +141,11 @@ pub fn identify() -> Result<CpuInfo, String> {
     }
 }
 
+/// Gets the CPU clock frequency in MHz.
+///
+/// The underlying implementation uses several methods to discover CPU
+/// speed, including direct measurement. If all these methods fail, function
+/// returns `None`.
 pub fn clock_frequency() -> Option<int> {
     let frequency = unsafe {
         ffi::cpu_clock()

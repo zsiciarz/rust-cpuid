@@ -51,17 +51,32 @@ use std::default::Default;
 
 mod ffi;
 
+/// A struct holding information about CPU features.
+///
+/// This data structure is returned by identify(). You can consult
+/// [libcpuid docs for cpu_id_t](http://libcpuid.sourceforge.net/doxy/structcpu__id__t.html)
+/// for more detailed descriptions of these fields.
 #[deriving(Show)]
 pub struct CpuInfo {
+    /// CPU vendor string, for example "GenuineIntel".
     pub vendor: String,
+    /// Brand string, for example "Intel(R) Core(TM) i5-2410M CPU @ 2.30GHz".
     pub brand: String,
+    /// Brief CPU codename, such as "Sandy Bridge (Core i5)".
     pub codename: String,
+    /// Number of physical cores of the current CPU.
     pub num_cores: int,
+    /// Number of logical processors (may include HyperThreading or such).
     pub num_logical_cpus: int,
+    /// Total number of logical processors.
     pub total_logical_cpus: int,
+    /// L1 data cache size in kB. Some(0) if the CPU lacks cache, None if it couldn't be determined.
     pub l1_data_cache: Option<int>,
+    /// L1 instruction cache size in kB. Some(0) if the CPU lacks cache, None if it couldn't be determined.
     pub l1_instruction_cache: Option<int>,
+    /// L2 cache size in kB. Some(0) if the CPU lacks L2 cache, None if it couldn't be determined.
     pub l2_cache: Option<int>,
+    /// L3 cache size in kB. Some(0) if the CPU lacks L3 cache, None if it couldn't be determined.
     pub l3_cache: Option<int>,
 }
 

@@ -77,6 +77,7 @@ pub struct CpuInfo {
     pub l2_cache: Option<int>,
     /// L3 cache size in kB. `Some(0)` if the CPU lacks L3 cache, `None` if it couldn't be determined.
     pub l3_cache: Option<int>,
+    flags: [u8, ..ffi::CPU_FLAGS_MAX],
 }
 
 /// Checks if the CPUID instruction is present.
@@ -136,6 +137,7 @@ pub fn identify() -> Result<CpuInfo, String> {
             l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache as int) } else { None },
             l2_cache: if data.l2_cache != -1 { Some(data.l2_cache as int) } else { None },
             l3_cache: if data.l3_cache != -1 { Some(data.l3_cache as int) } else { None },
+            flags: data.flags,
         })
     }
 }

@@ -81,6 +81,7 @@ pub struct CpuInfo {
     flags: [u8, ..ffi::CPU_FLAGS_MAX],
 }
 
+/// CPU feature identifiers.
 pub enum CpuFeature {
     FloatingPointUnit = 0,
     VirtualModeExtension,
@@ -180,6 +181,9 @@ pub enum CpuFeature {
 }
 
 impl CpuInfo {
+    /// Checks if current CPU supports given feature.
+    ///
+    /// See `CpuFeature` for a list of available feature identifiers.
     pub fn has_feature(&self, feature: CpuFeature) -> bool {
         return self.flags[feature as uint] == 1u8
     }

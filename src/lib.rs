@@ -34,9 +34,7 @@
 //!         Ok(info) => {
 //!             println!("Found: {} CPU, model: {}", info.vendor, info.codename);
 //!             println!("The full brand string is: {}", info.brand);
-//!             if info.has_feature(cpuid::FloatingPointUnit) {
-//!                 println!("Floating point unit available");
-//!             }
+//!             println!("Hardware AES support: {}", if info.has_feature(cpuid::AES) { "yes" } else { "no" });
 //!         },
 //!         Err(err) => println!("cpuid error: {}", err),
 //!     };

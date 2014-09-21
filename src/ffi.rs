@@ -12,19 +12,19 @@ pub static CPU_HINTS_MAX: uint = 16u;
 
 #[repr(C)]
 pub struct cpu_raw_data_t {
-    pub basic_cpuid: [[uint32_t, ..MAX_CPUID_LEVEL], ..4u],
-    pub ext_cpuid: [[uint32_t, ..MAX_EXT_CPUID_LEVEL], ..4u],
-    pub intel_fn4: [[uint32_t, ..MAX_INTELFN4_LEVEL], ..4u],
-    pub intel_fn11: [[uint32_t, ..MAX_INTELFN11_LEVEL], ..4u],
+    pub basic_cpuid: [[uint32_t, ..4u], ..MAX_CPUID_LEVEL],
+    pub ext_cpuid: [[uint32_t, ..4u], ..MAX_EXT_CPUID_LEVEL],
+    pub intel_fn4: [[uint32_t, ..4u], ..MAX_INTELFN4_LEVEL],
+    pub intel_fn11: [[uint32_t, ..4u], ..MAX_INTELFN11_LEVEL],
 }
 
 impl Default for cpu_raw_data_t {
     fn default() -> cpu_raw_data_t {
         cpu_raw_data_t {
-            basic_cpuid: [[0, ..MAX_CPUID_LEVEL], ..4u],
-            ext_cpuid: [[0, ..MAX_EXT_CPUID_LEVEL], ..4u],
-            intel_fn4: [[0, ..MAX_INTELFN4_LEVEL], ..4u],
-            intel_fn11: [[0, ..MAX_INTELFN11_LEVEL], ..4u],
+            basic_cpuid: [[0, ..4u], ..MAX_CPUID_LEVEL],
+            ext_cpuid: [[0, ..4u], ..MAX_EXT_CPUID_LEVEL],
+            intel_fn4: [[0, ..4u], ..MAX_INTELFN4_LEVEL],
+            intel_fn11: [[0, ..4u], ..MAX_INTELFN11_LEVEL],
         }
     }
 }

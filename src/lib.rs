@@ -56,7 +56,6 @@ mod ffi;
 /// This data structure is returned by `identify()`. You can consult
 /// [libcpuid docs for cpu_id_t](http://libcpuid.sourceforge.net/doxy/structcpu__id__t.html)
 /// for more detailed descriptions of these fields.
-#[deriving(Show)]
 pub struct CpuInfo {
     /// CPU vendor string, for example *GenuineIntel*.
     pub vendor: String,

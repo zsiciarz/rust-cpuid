@@ -1,14 +1,14 @@
 use std::default::Default;
 use libc::{c_int, c_char, uint8_t, uint32_t, int32_t};
 
-pub static MAX_CPUID_LEVEL: uint = 32u;
-pub static MAX_EXT_CPUID_LEVEL: uint = 32u;
-pub static MAX_INTELFN4_LEVEL: uint = 4u;
-pub static MAX_INTELFN11_LEVEL: uint = 4u;
-pub static VENDOR_STR_MAX: uint = 16u;
-pub static BRAND_STR_MAX: uint = 64u;
-pub static CPU_FLAGS_MAX: uint = 128u;
-pub static CPU_HINTS_MAX: uint = 16u;
+pub const MAX_CPUID_LEVEL: uint = 32u;
+pub const MAX_EXT_CPUID_LEVEL: uint = 32u;
+pub const MAX_INTELFN4_LEVEL: uint = 4u;
+pub const MAX_INTELFN11_LEVEL: uint = 4u;
+pub const VENDOR_STR_MAX: uint = 16u;
+pub const BRAND_STR_MAX: uint = 64u;
+pub const CPU_FLAGS_MAX: uint = 128u;
+pub const CPU_HINTS_MAX: uint = 16u;
 
 #[repr(C)]
 pub struct cpu_raw_data_t {

@@ -48,7 +48,7 @@
 extern crate libc;
 
 use std::c_str::CString;
-use std::default::Default;
+use std::mem;
 
 mod ffi;
 
@@ -221,14 +221,14 @@ pub fn error() -> String {
 /// If libcpuid encounters an error, `identify` returns an `Err` with
 /// the error message inside.
 pub fn identify() -> Result<CpuInfo, String> {
-    let mut raw: ffi::cpu_raw_data_t = Default::default();
+    let mut raw: ffi::cpu_raw_data_t = unsafe { mem::uninitialized() };
     let raw_result = unsafe {
         ffi::cpuid_get_raw_data(&mut raw)
     };
     if raw_result != 0 {
         return Err(error());
     }
-    let mut data: ffi::cpu_id_t = Default::default();
+    let mut data: ffi::cpu_id_t = unsafe { mem::uninitialized() };
     let identify_result = unsafe {
         ffi::cpu_identify(&mut raw, &mut data)
     };

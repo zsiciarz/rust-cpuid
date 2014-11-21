@@ -3,6 +3,13 @@
 name = "cpuid"
 version = "0.0.1"
 authors = ["Zbigniew Siciarz <zbigniew@siciarz.net>"]
+description = "Rust bindings for libpcuid CPU detection and feature extraction library."
+documentation = "http://www.rust-ci.org/zsiciarz/rust-cpuid/doc/cpuid/"
+homepage = "https://github.com/zsiciarz/rust-cpuid"
+repository = "https://github.com/zsiciarz/rust-cpuid"
+readme = "README.md"
+keywords = ["cpuid", "cpu", "hardware"]
+license = "MIT"
 
 [lib]
 name = "cpuid"

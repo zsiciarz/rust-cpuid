@@ -14,8 +14,8 @@ First - download, and build libcpuid as [described in the readme](https://github
 Add to your `Cargo.toml`:
 
 ```toml
-[dependencies.cpuid]
-git = "https://github.com/zsiciarz/rust-cpuid.git"
+[dependencies]
+cpuid = "*"
 ```
 
 Add `extern crate cpuid` to your crate root and you're good to go! For example:

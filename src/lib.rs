@@ -20,8 +20,8 @@
 //! Add to your `Cargo.toml`:
 //!
 //! ```toml
-//! [dependencies.cpuid]
-//! git = "https://github.com/zsiciarz/rust-cpuid.git"
+//! [dependencies]
+//! cpuid = "*"
 //! ```
 //!
 //! # Example

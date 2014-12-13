@@ -82,6 +82,7 @@ pub struct CpuInfo {
 }
 
 /// CPU feature identifiers.
+#[deriving(Copy)]
 pub enum CpuFeature {
     FloatingPointUnit = 0,
     VirtualModeExtension,

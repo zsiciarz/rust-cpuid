@@ -78,7 +78,7 @@ pub struct CpuInfo {
     pub l2_cache: Option<int>,
     /// L3 cache size in kB. `Some(0)` if the CPU lacks L3 cache, `None` if it couldn't be determined.
     pub l3_cache: Option<int>,
-    flags: [u8, ..ffi::CPU_FLAGS_MAX],
+    flags: [u8; ffi::CPU_FLAGS_MAX],
 }
 
 /// CPU feature identifiers.

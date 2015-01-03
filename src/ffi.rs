@@ -11,18 +11,18 @@ pub const CPU_HINTS_MAX: uint = 16u;
 
 #[repr(C)]
 pub struct cpu_raw_data_t {
-    pub basic_cpuid: [[uint32_t, ..4u], ..MAX_CPUID_LEVEL],
-    pub ext_cpuid: [[uint32_t, ..4u], ..MAX_EXT_CPUID_LEVEL],
-    pub intel_fn4: [[uint32_t, ..4u], ..MAX_INTELFN4_LEVEL],
-    pub intel_fn11: [[uint32_t, ..4u], ..MAX_INTELFN11_LEVEL],
+    pub basic_cpuid: [[uint32_t; 4u]; MAX_CPUID_LEVEL],
+    pub ext_cpuid: [[uint32_t; 4u]; MAX_EXT_CPUID_LEVEL],
+    pub intel_fn4: [[uint32_t; 4u]; MAX_INTELFN4_LEVEL],
+    pub intel_fn11: [[uint32_t; 4u]; MAX_INTELFN11_LEVEL],
 }
 
 #[repr(C)]
 pub struct cpu_id_t {
-    pub vendor_str: [c_char, ..VENDOR_STR_MAX],
-    pub brand_str: [c_char, ..BRAND_STR_MAX],
+    pub vendor_str: [c_char; VENDOR_STR_MAX],
+    pub brand_str: [c_char; BRAND_STR_MAX],
     pub vendor: int32_t,
-    pub flags: [uint8_t, ..CPU_FLAGS_MAX],
+    pub flags: [uint8_t; CPU_FLAGS_MAX],
     pub family: int32_t,
     pub model: int32_t,
     pub stepping: int32_t,
@@ -41,9 +41,9 @@ pub struct cpu_id_t {
     pub l1_cacheline: int32_t,
     pub l2_cacheline: int32_t,
     pub l3_cacheline: int32_t,
-    pub cpu_codename: [c_char, ..64],
+    pub cpu_codename: [c_char; 64],
     pub sse_size: int32_t,
-    pub detection_hints: [uint8_t, ..CPU_HINTS_MAX],
+    pub detection_hints: [uint8_t; CPU_HINTS_MAX],
 }
 
 #[link(name = "cpuid")]

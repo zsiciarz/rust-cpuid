@@ -47,8 +47,8 @@
 
 extern crate libc;
 
-use std::c_str::CString;
 use std::mem;
+use std::str;
 
 mod ffi;
 
@@ -199,20 +199,20 @@ pub fn is_present() -> bool {
 
 /// Returns libcpuid version string.
 pub fn version() -> String {
-    let version_string = unsafe {
+    unsafe {
         let ptr = ffi::cpuid_lib_version();
-        CString::new(ptr, false)
-    };
-    version_string.as_str().unwrap().to_string()
+        let bytes = std::ffi::c_str_to_bytes(&ptr);
+        str::from_utf8(bytes).ok().expect("Invalid UTF8 string").to_string()
+    }
 }
 
 /// Returns last libcpuid error string.
 pub fn error() -> String {
-    let error_string = unsafe {
+    unsafe {
         let ptr = ffi::cpuid_error();
-        CString::new(ptr, false)
-    };
-    error_string.as_str().unwrap().to_string()
+        let bytes = std::ffi::c_str_to_bytes(&ptr);
+        str::from_utf8(bytes).ok().expect("Invalid UTF8 string").to_string()
+    }
 }
 
 /// Tries to identify the current CPU and its features.

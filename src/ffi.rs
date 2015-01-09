@@ -1,20 +1,20 @@
 use libc::{c_int, c_char, uint8_t, uint32_t, int32_t};
 
-pub const MAX_CPUID_LEVEL: uint = 32u;
-pub const MAX_EXT_CPUID_LEVEL: uint = 32u;
-pub const MAX_INTELFN4_LEVEL: uint = 4u;
-pub const MAX_INTELFN11_LEVEL: uint = 4u;
-pub const VENDOR_STR_MAX: uint = 16u;
-pub const BRAND_STR_MAX: uint = 64u;
-pub const CPU_FLAGS_MAX: uint = 128u;
-pub const CPU_HINTS_MAX: uint = 16u;
+pub const MAX_CPUID_LEVEL: usize = 32;
+pub const MAX_EXT_CPUID_LEVEL: usize = 32;
+pub const MAX_INTELFN4_LEVEL: usize = 4;
+pub const MAX_INTELFN11_LEVEL: usize = 4;
+pub const VENDOR_STR_MAX: usize = 16;
+pub const BRAND_STR_MAX: usize = 64;
+pub const CPU_FLAGS_MAX: usize = 128;
+pub const CPU_HINTS_MAX: usize = 16;
 
 #[repr(C)]
 pub struct cpu_raw_data_t {
-    pub basic_cpuid: [[uint32_t; 4u]; MAX_CPUID_LEVEL],
-    pub ext_cpuid: [[uint32_t; 4u]; MAX_EXT_CPUID_LEVEL],
-    pub intel_fn4: [[uint32_t; 4u]; MAX_INTELFN4_LEVEL],
-    pub intel_fn11: [[uint32_t; 4u]; MAX_INTELFN11_LEVEL],
+    pub basic_cpuid: [[uint32_t; 4]; MAX_CPUID_LEVEL],
+    pub ext_cpuid: [[uint32_t; 4]; MAX_EXT_CPUID_LEVEL],
+    pub intel_fn4: [[uint32_t; 4]; MAX_INTELFN4_LEVEL],
+    pub intel_fn11: [[uint32_t; 4]; MAX_INTELFN11_LEVEL],
 }
 
 #[repr(C)]

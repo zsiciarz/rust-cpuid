@@ -45,6 +45,8 @@
 //! }
 //! ```
 
+#![allow(unstable)]
+
 extern crate libc;
 
 use std::mem;
@@ -65,19 +67,19 @@ pub struct CpuInfo {
     /// Brief CPU codename, such as *Sandy Bridge (Core i5)*.
     pub codename: String,
     /// Number of physical cores of the current CPU.
-    pub num_cores: int,
+    pub num_cores: i32,
     /// Number of logical processors (may include HyperThreading or such).
-    pub num_logical_cpus: int,
+    pub num_logical_cpus: i32,
     /// Total number of logical processors.
-    pub total_logical_cpus: int,
+    pub total_logical_cpus: i32,
     /// L1 data cache size in kB. `Some(0)` if the CPU lacks cache, `None` if it couldn't be determined.
-    pub l1_data_cache: Option<int>,
+    pub l1_data_cache: Option<i32>,
     /// L1 instruction cache size in kB. `Some(0)` if the CPU lacks cache, `None` if it couldn't be determined.
-    pub l1_instruction_cache: Option<int>,
+    pub l1_instruction_cache: Option<i32>,
     /// L2 cache size in kB. `Some(0)` if the CPU lacks L2 cache, `None` if it couldn't be determined.
-    pub l2_cache: Option<int>,
+    pub l2_cache: Option<i32>,
     /// L3 cache size in kB. `Some(0)` if the CPU lacks L3 cache, `None` if it couldn't be determined.
-    pub l3_cache: Option<int>,
+    pub l3_cache: Option<i32>,
     flags: [u8; ffi::CPU_FLAGS_MAX],
 }
 
@@ -186,7 +188,7 @@ impl CpuInfo {
     ///
     /// See `CpuFeature` for a list of available feature identifiers.
     pub fn has_feature(&self, feature: CpuFeature) -> bool {
-        return self.flags[feature as uint] == 1u8
+        return self.flags[feature as usize] == 1u8
     }
 }
 
@@ -240,13 +242,13 @@ pub fn identify() -> Result<CpuInfo, String> {
             vendor: String::from_utf8(data.vendor_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid vendor string"),
             brand: String::from_utf8(data.brand_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid brand string"),
             codename: String::from_utf8(data.cpu_codename.iter().map(|&x| x as u8).collect()).ok().expect("Invalid codename string"),
-            num_cores: data.num_cores as int,
-            num_logical_cpus: data.num_logical_cpus as int,
-            total_logical_cpus: data.total_logical_cpus as int,
-            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache as int) } else { None },
-            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache as int) } else { None },
-            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache as int) } else { None },
-            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache as int) } else { None },
+            num_cores: data.num_cores as i32,
+            num_logical_cpus: data.num_logical_cpus as i32,
+            total_logical_cpus: data.total_logical_cpus as i32,
+            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache as i32) } else { None },
+            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache as i32) } else { None },
+            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache as i32) } else { None },
+            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache as i32) } else { None },
             flags: data.flags,
         })
     }
@@ -257,12 +259,12 @@ pub fn identify() -> Result<CpuInfo, String> {
 /// The underlying implementation uses several methods to discover CPU
 /// speed, including direct measurement. If all these methods fail, function
 /// returns `None`.
-pub fn clock_frequency() -> Option<int> {
+pub fn clock_frequency() -> Option<i32> {
     let frequency = unsafe {
         ffi::cpu_clock()
     };
     if frequency != -1 {
-        Some(frequency as int)
+        Some(frequency as i32)
     } else {
         None
     }

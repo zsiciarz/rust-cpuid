@@ -45,7 +45,7 @@
 //! }
 //! ```
 
-#![allow(unstable)]
+#![feature(libc, std_misc)]
 
 extern crate libc;
 

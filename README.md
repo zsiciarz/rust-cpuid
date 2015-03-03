@@ -1,6 +1,7 @@
 rust-cpuid
 ==========
 
+[![crates.io](https://img.shields.io/crates/v/cpuid.svg)](https://crates.io/crates/cpuid)
 [![Build Status](https://travis-ci.org/zsiciarz/rust-cpuid.svg?branch=master)](https://travis-ci.org/zsiciarz/rust-cpuid)
 
 Rust bindings for [libpcuid](https://github.com/anrieff/libcpuid)

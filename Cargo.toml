@@ -1,7 +1,7 @@
 [package]
 
 name = "cpuid"
-version = "0.0.8"
+version = "0.0.9"
 authors = ["Zbigniew Siciarz <zbigniew@siciarz.net>"]
 description = "Rust bindings for libpcuid CPU detection and feature extraction library."
 documentation = "http://www.rust-ci.org/zsiciarz/rust-cpuid/doc/cpuid/"

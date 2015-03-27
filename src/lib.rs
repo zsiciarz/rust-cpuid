@@ -243,13 +243,13 @@ pub fn identify() -> Result<CpuInfo, String> {
             vendor: String::from_utf8(data.vendor_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid vendor string"),
             brand: String::from_utf8(data.brand_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid brand string"),
             codename: String::from_utf8(data.cpu_codename.iter().map(|&x| x as u8).collect()).ok().expect("Invalid codename string"),
-            num_cores: data.num_cores as i32,
-            num_logical_cpus: data.num_logical_cpus as i32,
-            total_logical_cpus: data.total_logical_cpus as i32,
-            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache as i32) } else { None },
-            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache as i32) } else { None },
-            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache as i32) } else { None },
-            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache as i32) } else { None },
+            num_cores: data.num_cores,
+            num_logical_cpus: data.num_logical_cpus,
+            total_logical_cpus: data.total_logical_cpus,
+            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache) } else { None },
+            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache) } else { None },
+            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache) } else { None },
+            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache) } else { None },
             flags: data.flags,
         })
     }
@@ -265,7 +265,7 @@ pub fn clock_frequency() -> Option<i32> {
         ffi::cpu_clock()
     };
     if frequency != -1 {
-        Some(frequency as i32)
+        Some(frequency)
     } else {
         None
     }

@@ -17,3 +17,6 @@ name = "cpuid"
 [[bin]]
 name = "cpuid"
 doc = false
+
+[dependencies]
+libc = "~0.1"

@@ -20,3 +20,6 @@ doc = false
 
 [dependencies]
 libc = "~0.1"
+
+[features]
+unstable = []

@@ -3,6 +3,7 @@ rust-cpuid
 
 [![crates.io](https://img.shields.io/crates/v/cpuid.svg)](https://crates.io/crates/cpuid)
 [![Build Status](https://travis-ci.org/zsiciarz/rust-cpuid.svg?branch=master)](https://travis-ci.org/zsiciarz/rust-cpuid)
+[![Coverage Status](https://coveralls.io/repos/zsiciarz/rust-cpuid/badge.svg?branch=master)](https://coveralls.io/r/zsiciarz/rust-cpuid?branch=master)
 
 Rust bindings for [libpcuid](https://github.com/anrieff/libcpuid)
 CPU detection and feature extraction library.

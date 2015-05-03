@@ -13,10 +13,12 @@ install:
   - ./configure && make && sudo make install
   - sudo ldconfig
   - cd ..
+before_script:
+  - pip install 'travis-cargo<0.2' --user && export PATH=$HOME/.local/bin:$PATH
 script:
-  - cargo build --verbose
-  - cargo test --verbose
-  - cargo doc --verbose
-  - mv target/doc doc
+  - travis-cargo build
+  - travis-cargo test
+  - travis-cargo bench
+  - travis-cargo doc
 after_script:
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh

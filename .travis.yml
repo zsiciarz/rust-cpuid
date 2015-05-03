@@ -1,3 +1,4 @@
+sudo: required
 language: rust
 rust:
   - nightly
@@ -22,3 +23,4 @@ script:
   - travis-cargo doc
 after_script:
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
+  - travis-cargo coveralls

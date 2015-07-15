@@ -3,7 +3,7 @@ language: rust
 rust:
   - nightly
   - beta
-  - 1.0.0
+  - 1.1.0
 env:
   global:
     - secure: EcBvxcEJTxVg89DF7hR/VqwsGanWnngimblVgwyLhy3bk2ApyxKOcmcuzMdXMttGUvzB2ua+8LefnoKrXRwJ8Ms+NeDdp60H7brzwFZM2CbAQiVr8Gkk0o7refonvHOapcECRYFNHoVcRRYVyw+AEqmzGTx8X39mYHH5t9G5YfQ=

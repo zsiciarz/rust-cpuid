@@ -189,7 +189,7 @@ impl CpuInfo {
     ///
     /// See `CpuFeature` for a list of available feature identifiers.
     pub fn has_feature(&self, feature: CpuFeature) -> bool {
-        return self.flags[feature as usize] == 1u8;
+        self.flags[feature as usize] == 1u8
     }
 }
 

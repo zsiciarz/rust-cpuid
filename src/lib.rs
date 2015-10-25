@@ -15,7 +15,9 @@
 //!
 //! # Installation
 //!
-//! First - download, and build libcpuid as [described in the readme](https://github.com/anrieff/libcpuid). Install it by running `make install` (you may want to run `ldconfig` afterwards).
+//! First - download, and build libcpuid as [described in the
+//! readme](https://github.com/anrieff/libcpuid). Install it by running `make
+//! install` (you may want to run `ldconfig` afterwards).
 //!
 //! Add to your `Cargo.toml`:
 //!
@@ -187,15 +189,13 @@ impl CpuInfo {
     ///
     /// See `CpuFeature` for a list of available feature identifiers.
     pub fn has_feature(&self, feature: CpuFeature) -> bool {
-        return self.flags[feature as usize] == 1u8
+        return self.flags[feature as usize] == 1u8;
     }
 }
 
 /// Checks if the CPUID instruction is present.
 pub fn is_present() -> bool {
-    unsafe {
-        ffi::cpuid_present() == 1
-    }
+    unsafe { ffi::cpuid_present() == 1 }
 }
 
 /// Returns libcpuid version string.
@@ -224,30 +224,48 @@ pub fn error() -> String {
 /// the error message inside.
 pub fn identify() -> Result<CpuInfo, String> {
     let mut raw: ffi::cpu_raw_data_t = unsafe { mem::uninitialized() };
-    let raw_result = unsafe {
-        ffi::cpuid_get_raw_data(&mut raw)
-    };
+    let raw_result = unsafe { ffi::cpuid_get_raw_data(&mut raw) };
     if raw_result != 0 {
         return Err(error());
     }
     let mut data: ffi::cpu_id_t = unsafe { mem::uninitialized() };
-    let identify_result = unsafe {
-        ffi::cpu_identify(&mut raw, &mut data)
-    };
+    let identify_result = unsafe { ffi::cpu_identify(&mut raw, &mut data) };
     if identify_result != 0 {
         Err(error())
     } else {
         Ok(CpuInfo {
-            vendor: String::from_utf8(data.vendor_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid vendor string"),
-            brand: String::from_utf8(data.brand_str.iter().map(|&x| x as u8).collect()).ok().expect("Invalid brand string"),
-            codename: String::from_utf8(data.cpu_codename.iter().map(|&x| x as u8).collect()).ok().expect("Invalid codename string"),
+            vendor: String::from_utf8(data.vendor_str.iter().map(|&x| x as u8).collect())
+                        .ok()
+                        .expect("Invalid vendor string"),
+            brand: String::from_utf8(data.brand_str.iter().map(|&x| x as u8).collect())
+                       .ok()
+                       .expect("Invalid brand string"),
+            codename: String::from_utf8(data.cpu_codename.iter().map(|&x| x as u8).collect())
+                          .ok()
+                          .expect("Invalid codename string"),
             num_cores: data.num_cores,
             num_logical_cpus: data.num_logical_cpus,
             total_logical_cpus: data.total_logical_cpus,
-            l1_data_cache: if data.l1_data_cache != -1 { Some(data.l1_data_cache) } else { None },
-            l1_instruction_cache: if data.l1_instruction_cache != -1 { Some(data.l1_instruction_cache) } else { None },
-            l2_cache: if data.l2_cache != -1 { Some(data.l2_cache) } else { None },
-            l3_cache: if data.l3_cache != -1 { Some(data.l3_cache) } else { None },
+            l1_data_cache: if data.l1_data_cache != -1 {
+                Some(data.l1_data_cache)
+            } else {
+                None
+            },
+            l1_instruction_cache: if data.l1_instruction_cache != -1 {
+                Some(data.l1_instruction_cache)
+            } else {
+                None
+            },
+            l2_cache: if data.l2_cache != -1 {
+                Some(data.l2_cache)
+            } else {
+                None
+            },
+            l3_cache: if data.l3_cache != -1 {
+                Some(data.l3_cache)
+            } else {
+                None
+            },
             flags: data.flags,
         })
     }
@@ -259,9 +277,7 @@ pub fn identify() -> Result<CpuInfo, String> {
 /// speed, including direct measurement. If all these methods fail, function
 /// returns `None`.
 pub fn clock_frequency() -> Option<i32> {
-    let frequency = unsafe {
-        ffi::cpu_clock()
-    };
+    let frequency = unsafe { ffi::cpu_clock() };
     if frequency != -1 {
         Some(frequency)
     } else {

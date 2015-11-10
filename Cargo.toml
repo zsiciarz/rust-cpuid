@@ -19,7 +19,7 @@ name = "cpuid"
 doc = false
 
 [dependencies]
-libc = "~0.1"
+libc = "~0.2"
 
 [features]
 unstable = []

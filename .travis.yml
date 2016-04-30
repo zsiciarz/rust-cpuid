@@ -25,6 +25,7 @@ install:
 before_script:
   - pip install 'travis-cargo<0.2' --user && export PATH=$HOME/.local/bin:$PATH
   - export LIBRARY_PATH=$HOME/.local/bin/lib:$LIBRARY_PATH
+  - export LD_LIBRARY_PATH=$HOME/.local/bin/lib:$LD_LIBRARY_PATH
 script:
   - travis-cargo build
   - travis-cargo test

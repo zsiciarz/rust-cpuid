@@ -20,7 +20,7 @@ install:
   - git clone https://github.com/anrieff/libcpuid.git && cd libcpuid
   - libtoolize
   - autoreconf --install
-  - ./configure && make && make install
+  - ./configure --prefix=$HOME/.local/bin && make && make install
   - cd ..
 before_script:
   - pip install 'travis-cargo<0.2' --user && export PATH=$HOME/.local/bin:$PATH

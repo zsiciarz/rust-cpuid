@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 language: rust
 rust:
   - nightly
@@ -7,13 +7,20 @@ rust:
 env:
   global:
     - secure: EcBvxcEJTxVg89DF7hR/VqwsGanWnngimblVgwyLhy3bk2ApyxKOcmcuzMdXMttGUvzB2ua+8LefnoKrXRwJ8Ms+NeDdp60H7brzwFZM2CbAQiVr8Gkk0o7refonvHOapcECRYFNHoVcRRYVyw+AEqmzGTx8X39mYHH5t9G5YfQ=
+addons:
+  apt:
+    packages:
+      - libtool
+      - autoconf
+      - libcurl4-openssl-dev
+      - libelf-dev
+      - libdw-dev
+      - binutils-dev
 install:
-  - sudo apt-get install libtool autoconf binutils-dev
   - git clone https://github.com/anrieff/libcpuid.git && cd libcpuid
   - libtoolize
   - autoreconf --install
-  - ./configure && make && sudo make install
-  - sudo ldconfig
+  - ./configure && make && make install
   - cd ..
 before_script:
   - pip install 'travis-cargo<0.2' --user && export PATH=$HOME/.local/bin:$PATH
@@ -24,4 +31,4 @@ script:
   - travis-cargo doc
 after_script:
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
-  - travis-cargo coveralls --verify
+  - travis-cargo coveralls --no-sudo --verify

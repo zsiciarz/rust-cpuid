@@ -17,7 +17,7 @@ fn main() {
                      } else {
                          "no"
                      });
-        }
+        },
         Err(err) => println!("cpuid error: {}", err),
     }
     match cpuid::clock_frequency() {

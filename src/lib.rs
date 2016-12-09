@@ -50,7 +50,6 @@
 extern crate libc;
 
 use std::ffi::CStr;
-use std::mem;
 use std::str;
 
 mod ffi;
@@ -181,7 +180,31 @@ pub enum CpuFeature {
     MPERF,
     ProcessorFeedbackInterface,
     ProcessorAccumulator,
+    AVX2,
+    BMI1,
+    BMI2,
+    HardwareLockElision,
+    RestrictedTransactionalMemory,
+    AVX512F,
+    AVX512DQ,
+    AVX512PF,
+    AVX512ER,
+    AVX512CD,
+    SHASupport,
+    AVX512BW,
+    AVX512VL,
+    SGX,
+    RDSEED,
+    ArbitraryPrecision,
     NumCpuFeatures,
+}
+
+/// CPU SGX feature identifiers.
+#[derive(Clone, Copy)]
+pub enum CpuSGXFeature {
+    IntelSGX1,
+    IntelSGX2,
+    NumSGXFeature,
 }
 
 impl CpuInfo {
@@ -223,12 +246,12 @@ pub fn error() -> String {
 /// If libcpuid encounters an error, `identify` returns an `Err` with
 /// the error message inside.
 pub fn identify() -> Result<CpuInfo, String> {
-    let mut raw: ffi::cpu_raw_data_t = unsafe { mem::uninitialized() };
+    let mut raw: ffi::cpu_raw_data_t = Default::default();
     let raw_result = unsafe { ffi::cpuid_get_raw_data(&mut raw) };
     if raw_result != 0 {
         return Err(error());
     }
-    let mut data: ffi::cpu_id_t = unsafe { mem::uninitialized() };
+    let mut data: ffi::cpu_id_t = Default::default();
     let identify_result = unsafe { ffi::cpu_identify(&mut raw, &mut data) };
     if identify_result != 0 {
         Err(error())
